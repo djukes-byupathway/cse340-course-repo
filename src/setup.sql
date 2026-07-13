@@ -69,4 +69,11 @@ Values
 select a.project_id, a.organization_id, b.name, a.title, a.description, a.project_location, a.project_date 
 from project as a join organization as b on a.organization_id = b.organization_id
 order by b.name;
+
+
+for page retrieval we can probably just use this query:
+select b.name, a.title, a.project_date 
+from project as a join organization as b on a.organization_id = b.organization_id
+order by b.name;
+
 */
