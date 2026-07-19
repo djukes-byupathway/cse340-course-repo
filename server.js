@@ -9,6 +9,7 @@ import { testConnection } from './src/models/db.js';
 import { clear } from 'console';
 import router from './src/routes.js';
 import { showOrganizationDetailsPage } from './src/controllers/organizations.js';
+import { showProjectDetailsPage } from './src/controllers/projects.js';
 
 
 // Define the application environment
@@ -63,7 +64,8 @@ app.use(router);
 
 // Route for organization details page
 router.get('/organization/:id', showOrganizationDetailsPage);
-
+// Route for organization details page
+router.get('/project/:id', showProjectDetailsPage);
 // removing old routes 
 
 /* 

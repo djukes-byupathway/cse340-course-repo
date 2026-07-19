@@ -7,7 +7,10 @@
         <!-- Date: Project Title (Organization Name) -->
         <ul>
             <% projects.forEach(project=> { %>
-                <li> <%= project.project_date.toLocaleDateString('en-US') %> : <%= project.title %> <i><%= project.name %></i>
+                <li> <%= project.project_date.toLocaleDateString('en-US') %> : 
+                    <a href="/project/<%= project.project_id %>">
+                        <%= project.title %>
+                    </a> <%= project.organization_name %>
                 </li>
                 <% }); %>
         </ul>
