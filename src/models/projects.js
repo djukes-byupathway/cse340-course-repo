@@ -32,6 +32,35 @@ const getProjectsByOrganizationId = async (organizationId) => {
     return result.rows;
 };
 
+const getProjectsByCategoryId = async (categoryId) => {
+    const query = `
+        SELECT
+          p.project_id,
+          c.category_id,
+          p.title,
+          p.description,
+          p.project_location,
+          p.project_date,
+          o.name as organization_name
+        FROM category as c
+		join projectcategory as pc
+			on c.category_id = pc.category_id
+		join project as p
+			on pc.project_id = p.project_id
+        join organization as o
+            on p.organization_id = o.organization_id
+        WHERE c.category_id = $1
+        ORDER BY p.project_date;
+      `;
+
+    const queryParams = [categoryId];
+    const result = await db.query(query, queryParams);
+
+    return result.rows;
+};
+
+
+
 
 const getUpcomingProjects = async (number_of_projects) => {
     const query = `
@@ -81,4 +110,4 @@ const getProjectDetails = async (id) => {
     return result.rows.length > 0 ? result.rows[0] : null;
 }
 
-export { getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails }  
+export { getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails, getProjectsByCategoryId }  

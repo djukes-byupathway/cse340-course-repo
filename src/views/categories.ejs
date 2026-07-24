@@ -8,7 +8,9 @@
         <p>Here are a few categories for services projects:</p>
         <ul>
             <% categories.forEach(category=> { %>
-                <li> <%= category.name %> </li>
+                <li> 
+                    <a href="/category/<%= category.category_id %>"> <%= category.name %></a>
+                </li> 
             <% }); %>
         </ul>
     </main>

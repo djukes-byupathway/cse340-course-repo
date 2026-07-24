@@ -8,9 +8,12 @@ import { testConnection } from './src/models/db.js';
         // import { getAllCategories } from './src/models/categories.js';
 import { clear } from 'console';
 import router from './src/routes.js';
+
 import { showOrganizationDetailsPage } from './src/controllers/organizations.js';
 import { showProjectDetailsPage } from './src/controllers/projects.js';
+import { showCategoryDetailsPage } from './src/controllers/categories.js';
 
+// import { showCategoryDetailsPage } from './src/controllers/categories.js';
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -61,14 +64,20 @@ app.use((req, res, next) => {
 // Use the imported router to handle routes
 app.use(router);
 
-
-// Route for organization details page
+// Routes for details pages
 router.get('/organization/:id', showOrganizationDetailsPage);
-// Route for organization details page
 router.get('/project/:id', showProjectDetailsPage);
-// removing old routes 
+router.get('/category/:id', showCategoryDetailsPage);
+/* 
+// Route for category details page
+router.get('/category/:id', showCategoryDetailsPage);
+ */
+
 
 /* 
+// removing old routes 
+
+
 app.get('/ ', async (req, res) => {
     const title = 'Home';
     res.render('home', { title });

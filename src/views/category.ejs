@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+    <main>
+        <h1>
+            <%= title %>
+        </h1>
+
+        <h2>
+            Category Details: <% categoryDetails.name %>
+        </h2>
+
+        <h3>Related Service Projects</h3>
+        <ul>
+            <% projects.forEach(project=> { %>
+                <li>
+                    <%= project.project_date.toLocaleDateString('en-US') %> :
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.title %>
+                        </a>
+                        <%= project.organization_name %>
+                </li>
+                <% }); %>
+        </ul>
+    </main>
+
+    <%- include('partials/footer') %>

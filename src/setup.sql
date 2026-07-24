@@ -44,8 +44,6 @@ Values --(1, 'Title_1', 'Description_1', 'Location_1', '2026-07-26')
 , (1, 'Title_4', 'Description_4', 'Location_4', '2026-09-26')
 , (1, 'Title_5', 'Description_5', 'Location_5', '2026-10-26')
 
-
-
 -- insert projects for "GreenHarvest Growers" id = 2
 insert into project (organization_id, title, description, project_location, project_date) 
 Values 
@@ -71,9 +69,69 @@ from project as a join organization as b on a.organization_id = b.organization_i
 order by b.name;
 
 
-for page retrieval we can probably just use this query:
-select b.name, a.title, a.project_date 
+for page retreival we can probably just use this query:
+select b.name, a.project_id, a.title, a.project_date
 from project as a join organization as b on a.organization_id = b.organization_id
-order by b.name;
+order by a.project_id;
 
 */
+
+
+-- ========================================
+-- category Table
+-- ========================================
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL
+);
+
+-- insert projects for "UnityServe Volunteers" id = 3
+insert into category (name) 
+Values 
+  ('Environmental')
+, ('Educational')
+, ('Community Service')
+, ('Health and Wellness')
+, ('Disaster Relief')
+, ('BSA Eagle Project')
+, ('Blood Drive')
+
+select category_id, name from category;
+
+CREATE TABLE projectcategory (
+    projectcategory_id SERIAL PRIMARY KEY,
+    category_id int not null REFERENCES category(category_id) ,
+	project_id int not null REFERENCES project(project_id) 
+);
+
+insert into projectcategory (category_id, project_id) 
+Values 
+  (1, 1)
+, (2, 2)
+, (3, 3)
+, (4, 4)
+, (5, 5)
+, (1, 6)
+, (2, 7)
+, (3, 8)
+, (3, 9)
+, (4, 10)
+, (7, 11)
+, (5, 12)
+, (3, 13)
+, (2, 14)
+, (5, 15)
+;
+
+select b.name
+, a.project_id
+, a.title
+, a.project_date
+, c.name
+from project as a 
+join organization as b on a.organization_id = b.organization_id
+join projectcategory as pc on a.project_id = pc.project_id
+join category as c on pc.category_id = c.category_id
+order by a.project_id;
+
+
