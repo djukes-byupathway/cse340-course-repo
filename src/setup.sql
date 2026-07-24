@@ -85,7 +85,7 @@ CREATE TABLE category (
     name VARCHAR(150) NOT NULL
 );
 
--- insert projects for "UnityServe Volunteers" id = 3
+
 insert into category (name) 
 Values 
   ('Environmental')
