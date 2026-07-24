@@ -134,4 +134,38 @@ join projectcategory as pc on a.project_id = pc.project_id
 join category as c on pc.category_id = c.category_id
 order by a.project_id;
 
+-- based on feedback from grader, making some data changes; commented out lines are done so that they only run once but there is a record of them being run.
+update project set title = 'Schlot''s Creek Clean Up' where project_id = 1;
+update project set title = 'Sharing Life Lessons with Trouble Youth' where project_id = 2;
+update project set title = 'Town Parade Volunteers' where project_id = 3;
+update project set title = 'Smallville Immunization Drive' where project_id = 4;
+--insert into projectcategory(project_id, category_id) values(4, 3);
+update project set title = 'Tornado Relief Food Drive' where project_id = 5;
+update project set title = 'Clean up the Park Day at Woodlawn Park' where project_id = 6;
+update project set title = 'Knitting for Fun at the Senior Center' where project_id = 7;
+update project set title = 'Deliver Community Events Notices' where project_id = 9;
+update project set title = 'Red, White, and Boom! Staffing' where project_id = 8;
+update project set title = 'Free Vision Exams' where project_id = 10;
+update project set title = 'Johnny''s Eagle Project - Blood Drive' where project_id = 11;
+--insert into projectcategory(project_id, category_id) values(11, 6);
+--insert into projectcategory(project_id, category_id) values(11, 4);
+update project set title = 'Moore Tornado Clean Up', project_location = 'Moore, OK' where project_id = 12;
+update project set title = 'Pet Vaccinations' where project_id = 13;
+update project set title = 'Smallville Career Fair' where project_id = 14;
+update project set title = 'Hoe Down Galla Benefiting Tornado Victims' where project_id = 15;
 
+SELECT
+          p.project_id,
+          p.title,
+          c.category_id,
+		  c.name,
+          p.description,
+          p.project_location,
+          p.project_date
+        FROM category as c 
+		join projectcategory as pc
+			on c.category_id = pc.category_id
+		join project as p 
+			on pc.project_id = p.project_id
+        --WHERE c.category_id = 1
+        ORDER BY p.project_id;
