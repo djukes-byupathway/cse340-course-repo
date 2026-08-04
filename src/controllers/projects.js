@@ -35,7 +35,7 @@ const showNewProjectForm = async (req, res) => {
 }
 
 const processNewProjectForm = async (req, res) => {
-    const (title, description, location, date, organizationid) = req.body;
+    const { title, description, location, date, organizationId } = req.body;
     
     try {
         const newProjectId = await createProject(title, description, location, date, organizationId);
