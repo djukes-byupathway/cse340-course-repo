@@ -104,9 +104,9 @@ const processEditProjectForm = async (req, res) => {
         return res.redirect('/edit-project/' + req.params.id);
     }
     const project_Id = req.params.id;
-    const { title, description, location, date, organizationId } = req.body;
+    const { title, description, project_location, project_date, organizationId } = req.body;
 
-    await updateOrganization(project_Id, title, description, location, date, organizationId);
+    await updateOrganization(project_Id, title, description, project_location, project_date, organizationId);
 
     // Set a success flash message
     req.flash('success', 'Organization updated successfully!');
