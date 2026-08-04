@@ -84,7 +84,7 @@ const processNewProjectForm = async (req, res) => {
 
 const showEditProjectForm = async (req, res) => {
     const project_Id = req.params.id;
-    const projectDetails = await getOrganizationDetails(project_Id);
+    const projectDetails = await getProjectDetails(project_Id);
     const organizations = await getAllOrganizations();
 
     const title = 'Edit Project';
