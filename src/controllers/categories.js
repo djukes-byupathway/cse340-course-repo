@@ -1,5 +1,5 @@
 // Import any needed model functions
-import { getAllCategories, getCategoryDetails, getCategoriesByServiceProjectId, updateCategoryAssignments } from '../models/categories.js';
+import { getAllCategories, getCategoryDetails, getCategoriesByProjectId, updateCategoryAssignments } from '../models/categories.js';
 import { getProjectsByCategoryId , getProjectDetails} from '../models/projects.js';
 
 // Define any controller functions
@@ -23,7 +23,7 @@ const showAssignCategoriesForm = async (req, res) => {
     const projectId = req.params.projectId;
     const projectDetails = await getProjectDetails(projectId);
     const categories = await getAllCategories();
-    const assignedCategories = await getCategoriesByServiceProjectId(projectId);
+    const assignedCategories = await getCategoriesByProjectId(projectId);
 
     const title = 'Assign Categories to Project';
     res.render('assign-categories', { title, projectId, projectDetails, categories, assignedCategories });
