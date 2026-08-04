@@ -38,7 +38,7 @@
                     name="location"  
                     maxlength="255" 
                     required
-                    value="<%= projectDetails.location %>"/>
+                    value="<%= projectDetails.project_location %>"/>
             </div>
             
             <div class="form-group">
@@ -48,13 +48,13 @@
                     id="date" 
                     name="date" 
                     required 
-                    value="<%= projectDetails.date %>"/>
+                    value="<%= projectDetails.project_date %>"/>
             </div>
             
             <div class="form-group">
                 <label for="organizationId">Organization</label>
                 <select id="organizationId" name="organizationId" required>
-                    <option value="">Select an organization</option>
+                    <option value=""<%= projectDetails.organization_id %>"">Select an organization</option>
                     <% organizations.forEach(org=> { %>
                         <option value="<%= org.organization_id %>">
                             <%= org.name %>
