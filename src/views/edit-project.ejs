@@ -48,13 +48,14 @@
                     id="date" 
                     name="date" 
                     required 
-                    value="<%= projectDetails.project_date %>"/>
+                    value="<%= projectDetails.project_date %>"
+                    />
             </div>
             
             <div class="form-group">
                 <label for="organizationId">Organization</label>
                 <select id="organizationId" name="organizationId" required>
-                    <option value=""<%= projectDetails.organization_id %>"">Select an organization</option>
+                    <option value="<%= projectDetails.organization_id %>">Select an organization</option>
                     <% organizations.forEach(org=> { %>
                         <option value="<%= org.organization_id %>">
                             <%= org.name %>
