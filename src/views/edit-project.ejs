@@ -8,66 +8,44 @@
         <form action="/edit-project/<%= projectDetails.project_id %>" method="POST">
             <div class="form-group">
                 <label for="title">Project Title</label>
-                <input 
-                    type="text" 
-                    id="title" 
-                    name="title" 
-                    maxlength="150" 
-                    required 
-                    value="<%= projectDetails.title %>"
-                />
+                <input type="text" id="title" name="title" maxlength="150" required
+                    value="<%= projectDetails.title %>" />
             </div>
-            
+
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea 
-                        id="description" 
-                        name="description" 
-                        maxlength="500"
-                        required
-                    >
+                <textarea id="description" name="description" maxlength="500" required>
                     <%= projectDetails.description %>
                 </textarea>
             </div>
-            
+
             <div class="form-group">
                 <label for="location">Location</label>
-                <input 
-                    type="text" 
-                    id="location" 
-                    name="location"  
-                    maxlength="255" 
-                    required
-                    value="<%= projectDetails.project_location %>"/>
+                <input type="text" id="location" name="location" maxlength="255" required
+                    value="<%= projectDetails.project_location %>" />
             </div>
-            
+
             <div class="form-group">
                 <label for="date">Date</label>
-                <input 
-                    type="date" 
-                    id="date" 
-                    name="date" 
-                    required 
-                    value="<%= projectDetails.project_date %>"
-                    />
+                <input type="date" id="date" name="date" required value="<%= projectDetails.project_date %>" />
             </div>
-            
+
             <div class="form-group">
                 <label for="organizationId">Organization</label>
+
                 <select id="organizationId" name="organizationId" required>
                     <option value="">Select an organization</option>
+
                     <% organizations.forEach(org=> { %>
-                        <option value="<%= org.organization_id %>">
-                            <%= String(org.organization_id)===String(projectDetails.organization_id) ? 'selected' : '' %> 
-                        >
+                        <option value="<%= org.organization_id %>" <%= String(org.organization_id)===String(projectDetails.organization_id) ? 'selected' : '' %>>
                             <%= org.name %>
                         </option>
                         <% }); %>
                 </select>
             </div>
-            
+
             <button type="submit">Update Project</button>
-            </form>
+        </form>
 
 
     </main>
