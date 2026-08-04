@@ -6,7 +6,7 @@
         </h1>
 
         <h2>
-            Category Details: <% categoryDetails.name %>
+            Category Details: <%= categoryDetails.name %>
         </h2>
 
         <h3>Related Service Projects</h3>
@@ -21,6 +21,9 @@
                 </li>
                 <% }); %>
         </ul>
+
+        <a href="/edit-category/<%= categoryDetails.category_id %>">Edit Category Details</a>
+
     </main>
 
     <%- include('partials/footer') %>
