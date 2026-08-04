@@ -103,7 +103,7 @@ const processEditProjectForm = async (req, res) => {
         // Redirect back to the edit project form
         return res.redirect('/edit-project/' + req.params.id);
     }
-    const project_Id = req.params.id;
+    const project_Id = req.params.projectId;
     const { title, description, location, date, organizationId } = req.body;
 
     await updateOrganization(project_Id, title, description, location, date, organizationId);
