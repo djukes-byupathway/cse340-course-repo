@@ -112,7 +112,7 @@ const createProject = async (title, description, location, date, organizationId)
     Insert into project (title, description, project_location, project_date, organization_id)
     values($1, $2, $3, $4) returning project_id
     `;
-    const queryParams = [number_of_projects];
+    const queryParams = [title, description, location, date, organizationId];
     const result = await db.query(query, queryParams);
 
     if (result.rows.length === 0) {
