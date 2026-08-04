@@ -106,7 +106,7 @@ const processEditProjectForm = async (req, res) => {
     const project_Id = req.params.id;
     const { title, description, location, date, organizationId } = req.body;
 
-    await updateOrganization(project_Id, title, description, location, date, organizationId);
+    await updateProject(project_Id, title, description, location, date, organizationId);
 
     // Set a success flash message
     req.flash('success', 'Organization updated successfully!');
