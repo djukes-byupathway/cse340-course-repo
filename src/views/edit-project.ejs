@@ -58,7 +58,8 @@
                     <option value="">Select an organization</option>
                     <% organizations.forEach(org=> { %>
                         <option value="<%= org.organization_id %>">
-                            <%= String(org.organization_id)===String(projectDetails.organization_id) ? 'selected' : '' %>
+                            <%= String(org.organization_id)===String(projectDetails.organization_id) ? 'selected' : '' %> 
+                        >
                             <%= org.name %>
                         </option>
                         <% }); %>
