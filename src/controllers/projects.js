@@ -41,12 +41,11 @@ const processNewProjectForm = async (req, res) => {
         req.flash('success', 'New service project created successfully.');
         res.redirect(`/project/${newProjectId}`);
     } catch (error) {
-        console.error('Error created new project: ', error);
+        console.error('Error creating new project: ', error);
         req.flash('error', 'There was an error creating the service project.');
         res.redirect('/new-project');
     }
 }
-
 
 // Export any controller functions
 export { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm };

@@ -110,7 +110,7 @@ const getProjectDetails = async (id) => {
 const createProject = async (title, description, location, date, organizationId) => {
     const qry = `
     Insert into project (title, description, project_location, project_date, organization_id)
-    values($1, $2, $3, $4) returning project_id
+    values($1, $2, $3, $4, $5) returning project_id
     `;
     const queryParams = [title, description, location, date, organizationId];
     const result = await db.query(qry, queryParams);
@@ -119,7 +119,7 @@ const createProject = async (title, description, location, date, organizationId)
         throw new Error('Failed to create project');
     }
 
-    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+    if (process.env.ENABLE_SQL_LOGGING === 'TRUE') {
         console.log('Created new project with ID:', result.rows[0].project_id);
     }
 
