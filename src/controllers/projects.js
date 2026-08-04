@@ -3,8 +3,6 @@ import { getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getPr
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
 
-
-
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
 // Define any controller functions

@@ -109,7 +109,8 @@ const getProjectDetails = async (id) => {
 
 const createProject = async (title, description, location, date, organizationId) => {
     const qry = `
-    Insert into project (title, description, project_location, project_date, organization_id) values() returning project_id
+    Insert into project (title, description, project_location, project_date, organization_id)
+    values($1, $2, $3, $4) returning project_id
     `;
     const queryParams = [number_of_projects];
     const result = await db.query(query, queryParams);
