@@ -129,8 +129,8 @@ const createProject = async (title, description, location, date, organizationId)
 const updateProject = async (project_id, title, description, location, date, organizationId) => {
     const query = `
     UPDATE project
-    SET title= $1, description= $2, location= $3, date= $4, organizationId = $5
-    WHERE project_id = $5
+    SET title= $2, description= $3, location= $4, date= $5, organizationId = $6
+    WHERE project_id = $1
     RETURNING project_id;
   `;
 
