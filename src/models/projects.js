@@ -113,7 +113,7 @@ const createProject = async (title, description, location, date, organizationId)
     values($1, $2, $3, $4) returning project_id
     `;
     const queryParams = [title, description, location, date, organizationId];
-    const result = await db.query(query, queryParams);
+    const result = await db.query(qry, queryParams);
 
     if (result.rows.length === 0) {
         throw new Error('Failed to create project');
