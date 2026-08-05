@@ -172,3 +172,44 @@ SELECT
 			on pc.project_id = p.project_id
         --WHERE c.category_id = 1
         ORDER BY p.project_id;
+
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL,
+	role_description text
+);
+
+insert into roles (role_name, role_description) 
+Values 
+  ('user', 'Standard user role with basic access'),
+  ('admin', 'Administrator with full system access')
+  ;
+  
+select * from roles;
+
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER REFERENCES roles(role_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert a test user
+INSERT INTO users (name, email, password_hash, role_id) 
+VALUES ('testuser', 'test@example.com', 'placeholder_hash', 1);
+
+-- Join users and roles to see complete information
+SELECT u.user_id, u.name, u.email, r.role_name, r.role_description
+FROM users u
+JOIN roles r ON u.role_id = r.role_id;
+
+-- Delete the test user
+DELETE FROM users WHERE email = 'test@example.com';
+
+-- statement below adds admin role to admin account
+-- UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';
+-- SELECT * FROM users;
+-- SELECT * FROM roles;

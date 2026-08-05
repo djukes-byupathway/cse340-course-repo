@@ -29,9 +29,12 @@
                     </a></li>
                 <% }) %>
         </ul>
-        <a href="/assign-categories/<%= project.project_id %>">Edit Project Categories</a>
 
+        <% if (user && user.role_name==='admin' ) { %>        
+        <a href="/assign-categories/<%= project.project_id %>">Edit Project Categories</a><br>
         <a href="/edit-project/<%= project.project_id %>">Edit Project Details</a>
+            <% } %>
+        
 
     </main>
 
