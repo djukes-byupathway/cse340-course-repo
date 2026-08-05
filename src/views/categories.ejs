@@ -15,12 +15,10 @@
                 </li>
                 <% }); %>
         </ul>
+
+        <% if (user && user.role_name==='admin' ) { %>
+            <a href="/new-category">Add a new Category</a>
+            <% } %>
     </main>
-
-    <% if (user && user.role_name==='admin' ) { %>
-        <a href="/new-category">Add a new Category</a>
-        <% } %>
-
-
-
-            <%- include('partials/footer') %>
+   
+<%- include('partials/footer') %>
