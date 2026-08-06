@@ -4,18 +4,12 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import flash from './src/middleware/flash.js';
 import { testConnection } from './src/models/db.js';
-// removing imports for items no longer needed as we implement MVC
-        // import { getAllOrganizations } from './src/models/organizations.js';
-        // import { getAllProjects } from './src/models/projects.js';
-        // import { getAllCategories } from './src/models/categories.js';
 import { clear } from 'console';
 import router from './src/routes.js';
-
 import { showOrganizationDetailsPage } from './src/controllers/organizations.js';
 import { showProjectDetailsPage } from './src/controllers/projects.js';
 import { showCategoryDetailsPage } from './src/controllers/categories.js';
-
-// import { showCategoryDetailsPage } from './src/controllers/categories.js';
+import { processCancelVolunteer, processVolunteer } from './src/controllers/users.js';
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -91,6 +85,10 @@ app.use(router);
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/category/:id', showCategoryDetailsPage);
+router.get('/cancel-volunteer/:id', processCancelVolunteer);
+router.get('/volunteer/:id', processVolunteer);
+
+
 // Catch-all route for 404 errors
 app.use((req, res, next) => {
     const err = new Error('Page Not Found');

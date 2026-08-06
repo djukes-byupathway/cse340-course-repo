@@ -21,21 +21,41 @@
         <a href="/organization/<%= project.organization_id %>">
             <%= project.organization_name %>
         </a>
-        <h3>Project Category(s)</h3>
-        <ul>
-            <% categories.forEach(category=> { %>
-                <li><a href="/category/<%= category.category_id %>">
-                        <%= category.name %>
-                    </a></li>
-                <% }) %>
-        </ul>
-
-        <% if (user && user.role_name==='admin' ) { %>        
-        <a href="/assign-categories/<%= project.project_id %>">Edit Project Categories</a><br>
-        <a href="/edit-project/<%= project.project_id %>">Edit Project Details</a>
-            <% } %>
         
+            <h3>Project Category(s)</h3>
+            <ul>
+                <% categories.forEach(category=> { %>
+                    <li><a href="/category/<%= category.category_id %>">
+                            <%= category.name %>
+                        </a></li>
+                    <% }) %>
+            </ul>
+        
+           
+        
+        <% if (user && user.role_name==='admin' ) { %>
+            <a href="/assign-categories/<%= project.project_id %>">Edit Project Categories</a> | 
+            <a href="/edit-project/<%= project.project_id %>">Edit Project Details</a>  
+            <% } %>
 
+        <% if (isLoggedIn) { %>
+            <% const hasVolunteered=volunteers.some(volunteer=>
+                String(volunteer.user_id) === String(user.user_id)
+                ); %>
+        
+                <p>
+                    <% if (hasVolunteered) { %>
+                        You have volunteered for this project! |
+                        <a href="/cancel-volunteer/<%= project.project_id %>">
+                            Cancel Signup
+                        </a>
+                        <% } else { %>
+                            <a href="/volunteer/<%= project.project_id %>">
+                                Volunteer for this project
+                            </a>
+                            <% } %>
+                </p>
+<% } %>
     </main>
 
     <%- include('partials/footer') %>

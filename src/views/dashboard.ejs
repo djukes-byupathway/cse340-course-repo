@@ -11,6 +11,21 @@
         <p>Username: <%= email %>
         </p>
 
+        <h3>Volunteer Assignments</h3>
+        <ul>
+            <% projects.forEach(project=> { %>
+                <li>
+                    <a href="/project/<%= project.project_id %>">
+                        <%= project.title %> | <a href="/cancel-volunteer/<%= project.project_id %>">
+                            Cancel Signup
+                        </a>
+                    </a>
+                    
+                </li>
+                <% }); %>
+        </ul>
+
+
         <% if (user && user.role_name==='admin' ) { %>
             <a href="/users">View List of Users</a>
             <% } %>

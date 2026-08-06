@@ -1,5 +1,14 @@
 import bcrypt from 'bcrypt';
-import { createUser, authenticateUser, getAllUsers } from '../models/users.js';
+
+import {
+    createUser
+    , authenticateUser
+    , getAllUsers
+    , getProjectsByVolunteer
+    , assignVolunteerToProject
+    , getVolunteerByProject
+    , removeVolunteerFromProject
+} from '../models/users.js';
 
 const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
@@ -56,7 +65,6 @@ const processLoginForm = async (req, res) => {
     }
 };
 
-
 const processLogout = async (req, res) => {
     if (req.session.user) {
         delete req.session.user;
@@ -74,14 +82,6 @@ const requireLogin = (req, res, next) => {
     next();
 };
 
-const showDashboard = (req, res) => {
-    const user = req.session.user;
-    res.render('dashboard', {
-        title: 'Dashboard',
-        name: user.name,
-        email: user.email
-    });
-};
 
 /**
  * Middleware factory to require specific role for route access
@@ -109,12 +109,50 @@ const requireRole = (role) => {
     };
 };
 
-// Define any controller functions
 const showUsersPage = async (req, res) => {
     const users = await getAllUsers();
     const title = 'Users';
 
     res.render('users', { title, users });
+};
+
+const showDashboard = async (req, res) => {
+    const user = req.session.user;
+    const  projects = await getProjectsByVolunteer(user.user_id);
+
+    console.log(projects);
+    
+    res.render('dashboard', {
+        title: 'Dashboard',
+        name: user.name,
+        email: user.email,
+        projects
+    });
+};
+
+
+//AssignVolunteerToProject
+
+//process
+const processCancelVolunteer = async (req, res) => {
+    const user = req.session.user;
+    const projectId = req.params.id;
+    
+    await removeVolunteerFromProject(user.user_id, projectId);
+
+    req.flash('success', 'Successfully removed volunteer signup from project');
+    res.redirect('/dashboard');
+    };
+
+//process
+const processVolunteer = async (req, res) => {
+    const user = req.session.user;
+    const projectId = req.params.id;
+
+    await assignVolunteerToProject(user.user_id, projectId);
+
+    req.flash('success', 'Successfully volunteered for this project');
+    res.redirect(`/project/${projectId}`);
 };
 
 
@@ -128,4 +166,6 @@ export {
     , showDashboard
     , requireRole
     , showUsersPage
+    , processCancelVolunteer
+    , processVolunteer
 };

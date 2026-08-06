@@ -1,6 +1,7 @@
 import db from './db.js';
 import bcrypt from 'bcrypt';
 
+
 const createUser = async (name, email, passwordHash) => {
     const default_role = 'user';
     const query = `
@@ -42,6 +43,8 @@ const findUserByEmail = async (email) => {
     return result.rows[0];
 };
 
+
+
 const verifyPassword = async (password, passwordHash) => {
     return bcrypt.compare(password, passwordHash);
 };
@@ -61,7 +64,7 @@ const authenticateUser = async (email, password) => {
     delete results.password_hash;
 
     return results;
-}
+};
 
 const getAllUsers = async () => {
     const query = `
@@ -73,8 +76,52 @@ const getAllUsers = async () => {
     const result = await db.query(query);
 
     return result.rows;
-}
+};
+
+const assignVolunteerToProject = async (userid, projectId) => {
+    const query = `
+        insert into volunteer (project_id, user_id)  
+        VALUES ($2, $1);
+    `;
+
+    await db.query(query, [userid, projectId]);
+};
+
+const getVolunteerByProject = async (projId) => {
+    const query = `
+    select v.volunteer_id, v.project_id, p.title, v.user_id, u.name
+    from volunteer as v join project as p on v.project_id = p.project_id
+	join users as u on v.user_id = u.user_id
+    where v.project_id = $1
+	;
+    `;
+    const queryParams = [projId];
+    const result = await db.query(query, queryParams);
+
+    return result.rows;
+};
+
+const getProjectsByVolunteer = async (vol_id) => {
+    const query = `
+    select v.volunteer_id, v.project_id, p.title, v.user_id, u.name
+    from volunteer as v join project as p on v.project_id = p.project_id
+	join users as u on v.user_id = u.user_id
+    where v.user_id = $1;
+    `;
+
+    const queryParams = [vol_id];
+    const result = await db.query(query, queryParams);
+
+    return result.rows;
+};
+
+const removeVolunteerFromProject = async (userid, projectId) => {
+    const query = `
+        delete from volunteer where user_id = $1 and project_id = $2;
+    `;
+    const queryParams = [userid, projectId];
+    await db.query(query, queryParams);
+};
 
 
-
-export { createUser, authenticateUser, getAllUsers };
+export { createUser, authenticateUser, getAllUsers, getVolunteerByProject, assignVolunteerToProject, getProjectsByVolunteer, removeVolunteerFromProject };

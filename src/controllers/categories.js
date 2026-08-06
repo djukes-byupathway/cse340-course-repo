@@ -38,6 +38,7 @@ const showAssignCategoriesForm = async (req, res) => {
     const title = 'Assign Categories to Project';
     res.render('assign-categories', { title, projectId, projectDetails, categories, assignedCategories });
 };
+
 const processAssignCategoriesForm = async (req, res) => {
     const projectId = req.params.projectId;
     const selectedCategoryIds = req.body.categoryIds || [];

@@ -8,9 +8,9 @@ const getAllCategories = async () => {
     const result = await db.query(query);
 
     return result.rows;
-}
+};
 
-const getCategoryDetails = async(id) => {
+const getCategoryDetails = async (id) => {
     const query = `
     select category_id, name from category where category_id = $1;
     `;
@@ -19,7 +19,7 @@ const getCategoryDetails = async(id) => {
 
     // Return the first row of the result set, or null if no rows are found
     return result.rows.length > 0 ? result.rows[0] : null;
-}
+};
 
 const getCategoriesByProjectId = async (projId) => {
     const query = `
@@ -38,7 +38,7 @@ const getCategoriesByProjectId = async (projId) => {
     const result = await db.query(query, queryParams);
 
     return result.rows;
-}
+};
 
 const assignCategoryToProject = async (categoryId, projectId) => {
     const query = `
@@ -47,7 +47,7 @@ const assignCategoryToProject = async (categoryId, projectId) => {
     `;
 
     await db.query(query, [categoryId, projectId]);
-}
+};
 
 const updateCategoryAssignments = async (projectId, categoryIds) => {
     // First, remove existing category assignments for the project
@@ -57,10 +57,10 @@ const updateCategoryAssignments = async (projectId, categoryIds) => {
     `;
     await db.query(deleteQuery, [projectId]);
 
-      for (const categoryId of categoryIds) {
+    for (const categoryId of categoryIds) {
         await assignCategoryToProject(categoryId, projectId);
     }
-}
+};
 
 const createCategory = async (name) => {
     const query = `
@@ -83,8 +83,6 @@ const createCategory = async (name) => {
     return result.rows[0].category_id;    
 
 };
-
-
 
 const updateCategory = async (categoryId, name) => {
     const query = `

@@ -45,7 +45,9 @@ import {
     showDashboard,
     requireLogin,
     requireRole,
-    showUsersPage
+    showUsersPage,
+    processCancelVolunteer
+    , processVolunteer
 } from './controllers/users.js'
 
 import { testErrorPage } from './controllers/errors.js';
@@ -83,6 +85,8 @@ router.get('/login', showLoginForm);
 router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 
+router.post('/cancel-volunteer/:id', requireLogin, processCancelVolunteer);
+router.post('/volunteer/:id', requireLogin, processVolunteer);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);

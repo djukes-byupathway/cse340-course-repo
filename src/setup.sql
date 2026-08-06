@@ -213,3 +213,19 @@ DELETE FROM users WHERE email = 'test@example.com';
 -- UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';
 -- SELECT * FROM users;
 -- SELECT * FROM roles;
+
+CREATE TABLE volunteer (
+    volunteer_id SERIAL PRIMARY KEY,
+	project_id INTEGER REFERENCES project(project_id),
+    user_id INTEGER REFERENCES users(user_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+--userid=2
+--project_id = 11
+insert into volunteer (project_id, user_id) values(11, 2);
+
+select v.volunteer_id, v.project_id, p.title, v.user_id, u.name
+from volunteer as v join project as p on v.project_id = p.project_id 
+	join users as u on v.user_id = u.user_id
+	;
